@@ -53,14 +53,11 @@ public abstract class MovieRoomDb extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            dao.deleteAllMovies();
+//            dao.deleteAllMovies();
 
             // For testing
-            Movie movie = new Movie("Candy", 8);
-            dao.insertMovie(movie);
-
-            movie  = new Movie("Treat", 6.5);
-            dao.insertMovie(movie);
+//            Movie movie = new Movie("Candy", 8);
+//            dao.insertMovie(movie);
 
             return null;
         }
