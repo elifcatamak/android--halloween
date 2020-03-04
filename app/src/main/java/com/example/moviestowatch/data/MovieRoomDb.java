@@ -56,11 +56,11 @@ public abstract class MovieRoomDb extends RoomDatabase {
             dao.deleteAllMovies();
 
             // For testing
-            Movie movieOne = new Movie("Candy", 8);
-            dao.insertMovie(movieOne);
+            Movie movie = new Movie("Candy", 8);
+            dao.insertMovie(movie);
 
-            Movie movieTwo = new Movie("Treat", 6.5);
-            dao.insertMovie(movieTwo);
+            movie  = new Movie("Treat", 6.5);
+            dao.insertMovie(movie);
 
             return null;
         }

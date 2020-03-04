@@ -2,17 +2,29 @@ package com.example.moviestowatch;
 
 import android.os.Bundle;
 
+import com.example.moviestowatch.model.Movie;
+import com.example.moviestowatch.ui.MovieRVAdapter;
+import com.example.moviestowatch.util.MovieViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+    private RecyclerView recyclerView;
+    private MovieRVAdapter adapter;
+    private MovieViewModel movieViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +34,26 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = findViewById(R.id.fab);
+        recyclerView = findViewById(R.id.main_recyclerView);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        adapter = new MovieRVAdapter();
+        recyclerView.setAdapter(adapter);
+
+        movieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
+
+        // Listening for change
+        // Observe getMovieList with this new observer
+        // View model notifies observer when there is a change
+        movieViewModel.getMovieList().observe(this, new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(List<Movie> movies) {
+                // Updating cached copy in the adapter
+                adapter.setMovieList(movies);
+            }
+        });
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

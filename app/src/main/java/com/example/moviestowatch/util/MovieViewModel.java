@@ -21,7 +21,7 @@ public class MovieViewModel extends AndroidViewModel {
         this.moveList = movieRepository.getMovieList();
     }
 
-    public LiveData<List<Movie>> getMoveList(){
+    public LiveData<List<Movie>> getMovieList(){
         return moveList;
     }
 
